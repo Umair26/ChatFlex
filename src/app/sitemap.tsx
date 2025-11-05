@@ -35,8 +35,13 @@ export async function generateSitemaps() {
   return [...staticSitemaps, ...paginatedSitemaps];
 }
 
-// 解析分页ID
+// 解析分页ID - Fixed with type checking
 export function parsePaginatedId(id: string): { page?: number; type: SitemapType } {
+  // Add type check for id to prevent .includes error
+  if (!id || typeof id !== 'string') {
+    return { type: 'pages' as SitemapType }; // Default fallback
+  }
+
   if (id.includes('-')) {
     const [type, pageStr] = id.split('-');
     const page = parseInt(pageStr, 10);
@@ -48,6 +53,12 @@ export function parsePaginatedId(id: string): { page?: number; type: SitemapType
 }
 
 export default async function sitemap({ id }: { id: string }): Promise<MetadataRoute.Sitemap> {
+  // Add safety check for id parameter
+  if (!id || typeof id !== 'string') {
+    const sitemapModule = new Sitemap();
+    return sitemapModule.getPage(); // Return default page
+  }
+
   const { type, page } = parsePaginatedId(id);
   const sitemapModule = new Sitemap();
 
