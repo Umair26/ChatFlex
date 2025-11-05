@@ -267,7 +267,10 @@ const nextConfig: NextConfig = {
     },
   ],
 
-  // when external packages in dev mode with turbopack, this config will lead to bundle error
+  // ... your existing config ...
+
+  turbopack: {}, // Add this line
+
   serverExternalPackages: isProd ? ['@electric-sql/pglite', "pdfkit"] : ["pdfkit"],
   transpilePackages: ['pdfjs-dist', 'mermaid'],
 
@@ -280,6 +283,7 @@ const nextConfig: NextConfig = {
       asyncWebAssembly: true,
       layers: true,
     };
+    // ... rest of webpack config
 
     // 开启该插件会导致 pglite 的 fs bundler 被改表
     if (enableReactScan && !isUsePglite) {

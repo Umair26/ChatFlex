@@ -73,9 +73,9 @@ export const generateViewport = async (props: DynamicLayoutProps): ResolvingView
 
   return {
     ...dynamicScale,
+    colorScheme: 'light dark',
     initialScale: 1,
-    minimumScale: 1,
-    colorScheme: 'light dark', // ← THIS LINE MUST BE HERE
+    minimumScale: 1, // ← THIS LINE MUST BE HERE
     themeColor: [
       { color: '#f8f8f8', media: '(prefers-color-scheme: light)' },
       { color: '#000', media: '(prefers-color-scheme: dark)' },
